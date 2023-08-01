@@ -34,7 +34,7 @@ The merged, split, encrypted, compressed, rotated, or extracted PDFs are stored 
 
 3. Run the Streamlit application using `streamlit run app.py`.
 
-4. Access the web application via the provided local URL or visit [**this site**]('pdfeditor.streamlit.app').
+4. Access the web application via the provided local URL or visit [**this site**](https://pdfeditor.streamlit.app/).
 
 5. Choose the desired PDF operation from the navigation bar and follow the instructions on the page.
 
