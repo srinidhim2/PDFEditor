@@ -14,11 +14,11 @@ def merge_pdfs(pdf1_bytes, pdf2_bytes):
 
     for page_num in range(len(pdf1_reader.pages)):
         page = pdf1_reader.pages[page_num]
-        pdf_writer.add_page(page)
+        pdf_writer.addPage(page)
 
     for page_num in range(len(pdf2_reader.pages)):
         page = pdf2_reader.pages[page_num]
-        pdf_writer.add_page(page)
+        pdf_writer.addPage(page)
 
     output_file = io.BytesIO()
     pdf_writer.write(output_file)
@@ -41,7 +41,7 @@ def split_pdf_at_page(input_file, split_page):
 
     for page_num in range(split_page - 1):
         page = pdf_reader.pages[page_num]
-        pdf_writer1.add_page(page)
+        pdf_writer1.addPage(page)
 
     output_file1 = open(output_path1, 'wb')
     pdf_writer1.write(output_file1)
@@ -52,7 +52,7 @@ def split_pdf_at_page(input_file, split_page):
 
     for page_num in range(split_page - 1, num_pages):
         page = pdf_reader.pages[page_num]
-        pdf_writer2.add_page(page)
+        pdf_writer2.addPage(page)
 
     output_file2 = open(output_path2, 'wb')
     pdf_writer2.write(output_file2)
@@ -79,7 +79,7 @@ def extract_pdf_pages(input_file, output_prefix, page_numbers):
         pdf_writer = PyPDF2.PdfFileWriter()
 
         page = pdf_reader.pages[page_num - 1]
-        pdf_writer.add_page(page)
+        pdf_writer.addPage(page)
 
         with open(output_path, 'wb') as output_file:
             pdf_writer.write(output_file)
@@ -93,7 +93,7 @@ def encrypt_pdf(input_file, output_file, password):
     pdf_writer = PyPDF2.PdfFileWriter()
 
     for page in pdf_reader.pages:
-        pdf_writer.add_page(page)
+        pdf_writer.addPage(page)
 
     pdf_writer.encrypt(password)
 
@@ -107,7 +107,7 @@ def decrypt_pdf(input_file, output_file, password):
         pdf_writer = PyPDF2.PdfFileWriter()
 
         for page in pdf_reader.pages:
-            pdf_writer.add_page(page)
+            pdf_writer.addPage(page)
 
         with open(output_file, 'wb') as output:
             pdf_writer.write(output)
@@ -120,7 +120,7 @@ def compress_pdf(input_file, output_file, quality=75):
     pdf_writer = PyPDF2.PdfFileWriter()
 
     for page in pdf_reader.pages:
-        pdf_writer.add_page(page)
+        pdf_writer.addPage(page)
 
     contains_images = any(has_images(page) for page in pdf_reader.pages)
     if contains_images:
@@ -135,7 +135,7 @@ def rotate_pdf(input_file, output_file, rotation_angle):
 
     for page in pdf_reader.pages:
         rotated_page = page.rotate(rotation_angle)
-        pdf_writer.add_page(rotated_page)
+        pdf_writer.addPage(rotated_page)
 
     with open(output_file, 'wb') as output:
         pdf_writer.write(output)
