@@ -1,4 +1,4 @@
-# PDFEditor ('pdfeditor.streamlit.app')
+# [PDFEditor]('pdfeditor.streamlit.app')
 Small python app for modifying PDFs
 
 Sure! Here's the description for the GitHub repository using Markdown notations:
