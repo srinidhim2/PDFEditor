@@ -2,11 +2,11 @@
 Small python app for modifying PDFs
 
 
-# PDF Manipulation Tools
+## PDF Manipulation Tools
 
 This GitHub repository contains a collection of Python scripts and a Streamlit web application to perform various operations on PDF files. The scripts utilize the PyPDF2 library for PDF manipulation and Streamlit for creating a user-friendly interface.
 
-## Supported Operations
+### Supported Operations
 
 1. **PDF Merger:** Merge two PDF files into a single PDF.
 
