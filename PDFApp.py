@@ -141,8 +141,9 @@ def rotate_pdf(input_file, output_file, rotation_angle):
         pdf_writer.write(output)
 
 def has_images(page):
-    xObject = page['/Resources']['/XObject'].resolve()
+    xObject = page['/Resources']['/XObject'].getObject()
     return '/Im0' in xObject
+
 
 def merge_pdfs_page():
     st.header("PDF Merger")
