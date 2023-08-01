@@ -1,4 +1,4 @@
-# [PDFEditor]('pdfeditor.streamlit.app')
+# [PDFEditor](https://pdfeditor.streamlit.app/)
 Small python app for modifying PDFs
 
 
