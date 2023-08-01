@@ -134,7 +134,7 @@ def rotate_pdf(input_file, output_file, rotation_angle):
     pdf_writer = PyPDF2.PdfFileWriter()
 
     for page in pdf_reader.pages:
-        rotated_page = page.rotateClockwise(ratation_angle)
+        rotated_page = page.rotateClockwise(rotation_angle)
         pdf_writer.addPage(rotated_page)
 
     with open(output_file, 'wb') as output:
