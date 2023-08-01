@@ -7,10 +7,10 @@ def merge_pdfs(pdf1_bytes, pdf2_bytes):
     pdf1_file = io.BytesIO(pdf1_bytes)
     pdf2_file = io.BytesIO(pdf2_bytes)
 
-    pdf1_reader = PyPDF2.PdfReader(pdf1_file)
-    pdf2_reader = PyPDF2.PdfReader(pdf2_file)
+    pdf1_reader = PyPDF2.PdfFileReader(pdf1_file)
+    pdf2_reader = PyPDF2.PdfFileReader(pdf2_file)
 
-    pdf_writer = PyPDF2.PdfWriter()
+    pdf_writer = PyPDF2.PdfFileWriter()
 
     for page_num in range(len(pdf1_reader.pages)):
         page = pdf1_reader.pages[page_num]
@@ -25,7 +25,7 @@ def merge_pdfs(pdf1_bytes, pdf2_bytes):
     return output_file.getvalue()
 
 def split_pdf_at_page(input_file, split_page):
-    pdf_reader = PyPDF2.PdfReader(input_file)
+    pdf_reader = PyPDF2.PdfFileReader(input_file)
     num_pages = len(pdf_reader.pages)
 
     if not 0 < split_page <= num_pages:
@@ -37,7 +37,7 @@ def split_pdf_at_page(input_file, split_page):
     os.makedirs(output_folder, exist_ok=True)
 
     output_path1 = os.path.join(output_folder, f"{filename}_split_part1.pdf")
-    pdf_writer1 = PyPDF2.PdfWriter()
+    pdf_writer1 = PyPDF2.PdfFileWriter()
 
     for page_num in range(split_page - 1):
         page = pdf_reader.pages[page_num]
@@ -48,7 +48,7 @@ def split_pdf_at_page(input_file, split_page):
     output_file1.close()
 
     output_path2 = os.path.join(output_folder, f"{filename}_split_part2.pdf")
-    pdf_writer2 = PyPDF2.PdfWriter()
+    pdf_writer2 = PyPDF2.PdfFileWriter()
 
     for page_num in range(split_page - 1, num_pages):
         page = pdf_reader.pages[page_num]
@@ -61,7 +61,7 @@ def split_pdf_at_page(input_file, split_page):
     return output_path1, output_path2
 
 def extract_pdf_pages(input_file, output_prefix, page_numbers):
-    pdf_reader = PyPDF2.PdfReader(input_file)
+    pdf_reader = PyPDF2.PdfFileReader(input_file)
     num_pages = len(pdf_reader.pages)
     page_numbers = [page_num for page_num in page_numbers if 0 < page_num <= num_pages]
 
@@ -76,7 +76,7 @@ def extract_pdf_pages(input_file, output_prefix, page_numbers):
     output_paths = []
     for page_num in page_numbers:
         output_path = os.path.join(output_folder, f"{output_prefix}_page_{page_num}.pdf")
-        pdf_writer = PyPDF2.PdfWriter()
+        pdf_writer = PyPDF2.PdfFileWriter()
 
         page = pdf_reader.pages[page_num - 1]
         pdf_writer.add_page(page)
@@ -89,8 +89,8 @@ def extract_pdf_pages(input_file, output_prefix, page_numbers):
     return output_paths
 
 def encrypt_pdf(input_file, output_file, password):
-    pdf_reader = PyPDF2.PdfReader(input_file)
-    pdf_writer = PyPDF2.PdfWriter()
+    pdf_reader = PyPDF2.PdfFileReader(input_file)
+    pdf_writer = PyPDF2.PdfFileWriter()
 
     for page in pdf_reader.pages:
         pdf_writer.add_page(page)
@@ -101,10 +101,10 @@ def encrypt_pdf(input_file, output_file, password):
         pdf_writer.write(output)
 
 def decrypt_pdf(input_file, output_file, password):
-    pdf_reader = PyPDF2.PdfReader(input_file)
+    pdf_reader = PyPDF2.PdfFileReader(input_file)
 
     if pdf_reader.decrypt(password):
-        pdf_writer = PyPDF2.PdfWriter()
+        pdf_writer = PyPDF2.PdfFileWriter()
 
         for page in pdf_reader.pages:
             pdf_writer.add_page(page)
@@ -116,8 +116,8 @@ def decrypt_pdf(input_file, output_file, password):
         return False
 
 def compress_pdf(input_file, output_file, quality=75):
-    pdf_reader = PyPDF2.PdfReader(input_file)
-    pdf_writer = PyPDF2.PdfWriter()
+    pdf_reader = PyPDF2.PdfFileReader(input_file)
+    pdf_writer = PyPDF2.PdfFileWriter()
 
     for page in pdf_reader.pages:
         pdf_writer.add_page(page)
@@ -130,8 +130,8 @@ def compress_pdf(input_file, output_file, quality=75):
         pdf_writer.write(output)
 
 def rotate_pdf(input_file, output_file, rotation_angle):
-    pdf_reader = PyPDF2.PdfReader(input_file)
-    pdf_writer = PyPDF2.PdfWriter()
+    pdf_reader = PyPDF2.PdfFileReader(input_file)
+    pdf_writer = PyPDF2.PdfFileWriter()
 
     for page in pdf_reader.pages:
         rotated_page = page.rotate(rotation_angle)
