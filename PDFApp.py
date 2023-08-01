@@ -265,7 +265,7 @@ def rotate_pdf_page():
                 st.download_button("Download Rotated PDF", data=open(output_file, 'rb').read(), file_name=os.path.basename(output_file))
 def main():
     st.title("PDF Editor")
-    st.markdown('[Github Link](https://github.com/srinidhim2)')
+    st.markdown('[Github Link](https://github.com/srinidhim2/PDFEditor)')
 
     # Navigation options in the sidebar
     navigation = st.sidebar.radio("Select Operation:", 
