@@ -3,7 +3,7 @@ import streamlit as st
 import PyPDF2
 import io
 
-st.beta_set_page_config(
+st.set_page_config(
     page_title='your_title',
      # favicon being an object of the same kind as the one you should provide st.image() with (ie. a PIL array for example) or a string (url or local file path)
     layout='wide',
