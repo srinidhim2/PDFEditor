@@ -200,15 +200,8 @@ def extract_pdf_pages_page():
 
             if output_paths:
                 st.success("PDF pages extracted successfully!")
-
-                selected_pages = st.multiselect("Select pages for download", [f"Page {page_num}" for page_num in page_numbers])
-
-                if st.button("Download Selected Pages") and selected_pages:
-                    selected_page_numbers = [int(page_num.split(" ")[-1]) for page_num in selected_pages]
-                    selected_output_paths = [output_paths[i - 1] for i in selected_page_numbers]
-                    
-                    for label, output_path in zip(selected_pages, selected_output_paths):
-                        st.download_button(label, data=open(output_path, 'rb').read(), file_name=os.path.basename(output_path))
+                for i, output_path in enumerate(output_paths):
+                    st.download_button(f"Download Page {page_numbers[i]}", data=open(output_path, 'rb').read(), file_name=os.path.basename(output_path))
 
 def encrypt_decrypt_pdf_page():
     st.header("PDF Encryptor/Decryptor")
