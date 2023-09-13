@@ -201,27 +201,17 @@ def extract_pdf_pages_page():
             if output_paths:
                 st.success("PDF pages extracted successfully!")
 
-                # Create a dictionary to keep track of selected pages
-                selected_pages = {}
+                selected_pages = []
 
-                # Display a checkbox for each extracted page
                 for i, output_path in enumerate(output_paths):
                     page_num = page_numbers[i]
-                    key = f"Download Page {page_num}"
-                    selected = st.checkbox(f"Select Page {page_num} for download", key=key)
+                    checkbox_label = f"Select Page {page_num}"
+                    if st.checkbox(checkbox_label):
+                        selected_pages.append((f"Download Page {page_num}", output_path))
 
-                    # If a page is selected, add it to the dictionary
-                    if selected:
-                        selected_pages[key] = output_path
-
-                # Create a button to download all selected pages
-                if selected_pages:
-                    if st.button("Download Selected Pages"):
-                        for key, output_path in selected_pages.items():
-                            st.download_button(key, data=open(output_path, 'rb').read(), file_name=os.path.basename(output_path))
-
-# Rest of your code...
-
+                if st.button("Download Selected Pages") and selected_pages:
+                    for label, output_path in selected_pages:
+                        st.download_button(label, data=open(output_path, 'rb').read(), file_name=os.path.basename(output_path))
 
 def encrypt_decrypt_pdf_page():
     st.header("PDF Encryptor/Decryptor")
