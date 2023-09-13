@@ -201,28 +201,26 @@ def extract_pdf_pages_page():
             if output_paths:
                 st.success("PDF pages extracted successfully!")
 
-                # Use a session-based variable to store selected pages
-                selected_pages = st.session_state.get("selected_pages", {})
+                # Create a dictionary to keep track of selected pages
+                selected_pages = {}
 
                 # Display a checkbox for each extracted page
                 for i, output_path in enumerate(output_paths):
                     page_num = page_numbers[i]
-                    key = f"Select Page {page_num}"
+                    key = f"Download Page {page_num}"
                     selected = st.checkbox(f"Select Page {page_num} for download", key=key)
 
-                    # If a page is selected, add it to the session variable
+                    # If a page is selected, add it to the dictionary
                     if selected:
                         selected_pages[key] = output_path
-                    # If a page is unselected, remove it from the session variable
-                    elif key in selected_pages:
-                        del selected_pages[key]
-
-                # Store the updated selected pages in the session
-                st.session_state.selected_pages = selected_pages
 
                 # Create a button to download all selected pages
                 if selected_pages:
-                    st.download_button("Download Selected Pages", data=selected_pages, key="download_selected_pages")
+                    if st.button("Download Selected Pages"):
+                        for key, output_path in selected_pages.items():
+                            st.download_button(key, data=open(output_path, 'rb').read(), file_name=os.path.basename(output_path))
+
+# Rest of your code...
 
 
 def encrypt_decrypt_pdf_page():
