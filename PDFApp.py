@@ -201,15 +201,24 @@ def extract_pdf_pages_page():
             if output_paths:
                 st.success("PDF pages extracted successfully!")
 
-                # Create a dictionary to keep track of selected pages
-                selected_pages = {}
-                
-                # Display a download button for each extracted page
+                # Use a session-based variable to store selected pages
+                selected_pages = st.session_state.get("selected_pages", {})
+
+                # Display a checkbox for each extracted page
                 for i, output_path in enumerate(output_paths):
                     page_num = page_numbers[i]
-                    key = f"Download Page {page_num}"
-                    if st.checkbox(f"Select Page {page_num} for download", key=key):
+                    key = f"Select Page {page_num}"
+                    selected = st.checkbox(f"Select Page {page_num} for download", key=key)
+
+                    # If a page is selected, add it to the session variable
+                    if selected:
                         selected_pages[key] = output_path
+                    # If a page is unselected, remove it from the session variable
+                    elif key in selected_pages:
+                        del selected_pages[key]
+
+                # Store the updated selected pages in the session
+                st.session_state.selected_pages = selected_pages
 
                 # Create a button to download all selected pages
                 if selected_pages:
